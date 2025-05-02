@@ -15,7 +15,9 @@ def index():
     try:
         with open("/tmp/time", "r") as f:
             minute = f.read()
-            return flask.render_template("index.html", num=int(minute))
+        hours = int(minute) // 60
+        remaining_minutes = int(minute) % 60
+        return flask.render_template("index.html", h=f"{hours}", m=f"{remaining_minutes}")
     except FileNotFoundError:
         #minute = "NaN"
         return flask.render_template("error.html")
@@ -30,7 +32,7 @@ def setting():
     pwd = flask.request.args.get('pwd')
     minutes = flask.request.args.get("time")
     if minutes and pwd:
-        if pwd == os.environ.get('pass'):
+        if pwd == os.environ.get('password'):
             with open("/tmp/time", "w") as f:
                 f.write(minutes)
                 return f"time 修改为：{minutes}", 200
@@ -39,6 +41,9 @@ def setting():
     else:
         return flask.Response(status=403)
 
+"""A PASSWORD TEST"""
+"""
 @app.route("/pwd")
 def test():
-    return os.environ.get('pass')
+    return os.environ.get('password')
+"""
