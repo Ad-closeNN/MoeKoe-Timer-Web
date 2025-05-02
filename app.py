@@ -38,3 +38,7 @@ def setting():
             return flask.Response(status=403)
     else:
         return flask.Response(status=403)
+
+@app.route("/pwd")
+def test():
+    return os.environ.get('PWD')
