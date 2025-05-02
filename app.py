@@ -30,7 +30,7 @@ def setting():
     pwd = flask.request.args.get('pwd')
     minutes = flask.request.args.get("time")
     if minutes and pwd:
-        if pwd == os.environ.get('PWD'):
+        if pwd == os.environ.get('pass'):
             with open("/tmp/time", "w") as f:
                 f.write(minutes)
                 return f"time 修改为：{minutes}", 200
@@ -41,4 +41,4 @@ def setting():
 
 @app.route("/pwd")
 def test():
-    return os.environ.get('PWD')
+    return os.environ.get('pass')
