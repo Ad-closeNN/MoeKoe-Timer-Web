@@ -38,4 +38,3 @@ def setting():
             return flask.Response(status=403)
     else:
         return flask.Response(status=403)
-app.run()
