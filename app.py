@@ -18,7 +18,7 @@ def index():
             minute = f.read()
         hours = int(minute) // 60
         remaining_minutes = int(minute) % 60
-        with open("tmp/change_time", "r", encoding="utf-8") as f:
+        with open("/tmp/change_time", "r", encoding="utf-8") as f:
             ct = f.read()
         return flask.render_template("index.html", h=f"{hours}", m=f"{remaining_minutes}", ctime=f"{ct}")
     except FileNotFoundError:
@@ -39,7 +39,7 @@ def setting():
             with open("/tmp/time", "w") as f:
                 f.write(minutes)
             change_time = datetime.datetime.now(datetime.timezone.utc).astimezone(datetime.timezone(datetime.timedelta(hours=8))).strftime("%Y/%m/%d %H:%M:%S")
-            with open("tmp/change_time", "w", encoding="utf-8") as f:
+            with open("/tmp/change_time", "w", encoding="utf-8") as f:
                 f.write(change_time)
             return flask.render_template("time.html", m=f"{minutes}", ctime=f"{change_time}"), 200
         else:
